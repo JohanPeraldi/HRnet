@@ -36,3 +36,13 @@
 .option {
   font-size: 1rem;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.button {
+  width: fit-content;
+}

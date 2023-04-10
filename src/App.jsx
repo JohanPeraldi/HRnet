@@ -12,7 +12,6 @@ function App() {
         <Link to="employee-list">View Current Employees</Link>
         <h2>Create Employee</h2>
         <Form />
-        <button>Save</button>
       </div>
     </>
   );

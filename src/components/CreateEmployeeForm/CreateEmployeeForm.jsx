@@ -2,6 +2,14 @@ import React from 'react';
 import styles from './CreateEmployeeForm.module.css';
 
 function CreateEmployeeForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    console.log('Employee info: ', data);
+  }
   const states = [
     {
       name: 'Alabama',
@@ -249,26 +257,55 @@ function CreateEmployeeForm() {
   ];
 
   return (
-    <form action="#" id="create-employee" className={styles.form}>
+    <form
+      action="#"
+      id="create-employee"
+      className={styles.form}
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="first-name" className={styles.label}>
         First Name
       </label>
-      <input type="text" id="first-name" className={styles.input} />
+      <input
+        type="text"
+        id="first-name"
+        name="firstName"
+        className={styles.input}
+        required
+      />
 
       <label htmlFor="last-name" className={styles.label}>
         Last Name
       </label>
-      <input type="text" id="last-name" className={styles.input} />
+      <input
+        type="text"
+        id="last-name"
+        name="lastName"
+        className={styles.input}
+        required
+      />
 
       <label htmlFor="date-of-birth" className={styles.label}>
         Date of Birth
       </label>
-      <input id="date-of-birth" type="text" className={styles.input} />
+      <input
+        type="date"
+        id="date-of-birth"
+        name="dateOfBirth"
+        className={styles.input}
+        required
+      />
 
       <label htmlFor="start-date" className={styles.label}>
         Start Date
       </label>
-      <input id="start-date" type="text" className={styles.input} />
+      <input
+        type="date"
+        id="start-date"
+        name="startDate"
+        className={styles.input}
+        required
+      />
 
       <fieldset className={styles.address}>
         <legend>Address</legend>
@@ -276,12 +313,24 @@ function CreateEmployeeForm() {
         <label htmlFor="street" className={styles.label}>
           Street
         </label>
-        <input id="street" type="text" className={styles.input} />
+        <input
+          type="text"
+          id="street"
+          name="street"
+          className={styles.input}
+          required
+        />
 
         <label htmlFor="city" className={styles.label}>
           City
         </label>
-        <input id="city" type="text" className={styles.input} />
+        <input
+          type="text"
+          id="city"
+          name="city"
+          className={styles.input}
+          required
+        />
 
         <label htmlFor="state" className={styles.label}>
           State
@@ -297,7 +346,13 @@ function CreateEmployeeForm() {
         <label htmlFor="zip-code" className={styles.label}>
           Zip Code
         </label>
-        <input id="zip-code" type="number" className={styles.input} />
+        <input
+          type="number"
+          id="zip-code"
+          name="zipCode"
+          className={styles.input}
+          required
+        />
       </fieldset>
 
       <label htmlFor="department" className={styles.label}>
@@ -308,6 +363,12 @@ function CreateEmployeeForm() {
           <option key={department}>{department}</option>
         ))}
       </select>
+
+      <div className={styles['button-container']}>
+        <button type="submit" className={styles.button}>
+          Save
+        </button>
+      </div>
     </form>
   );
 }
