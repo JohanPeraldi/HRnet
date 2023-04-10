@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function EmployeesList() {
+function EmployeeList() {
   return (
     <>
       <h1>Current Employees</h1>
@@ -10,4 +10,4 @@ function EmployeesList() {
   );
 }
 
-export default EmployeesList;
+export default EmployeeList;
