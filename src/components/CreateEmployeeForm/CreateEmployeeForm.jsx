@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CreateEmployeeForm.module.css';
 
 function CreateEmployeeForm() {
+  const [showModal, setShowModal] = useState(false);
+  /* function handleCloseModal() {
+    setShowModal(false);
+  } */
+  console.log('Modal is shown: ', showModal);
+  function handleShowModal() {
+    setShowModal(true);
+  }
   function handleSubmit(event) {
     event.preventDefault();
+    handleShowModal();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
