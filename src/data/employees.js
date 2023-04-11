@@ -1,32 +1,26 @@
-const employees = [
-  {
-    id: 1,
-    firstName: 'Jean-Michel',
-    lastName: 'Basquiat',
-    startDate: '2023-01-01',
-    department: 'Marketing',
-    dateOfBirth: '1960-12-22',
+import { faker } from '@faker-js/faker';
+
+const employees = [];
+function createEmployee() {
+  return {
+    id: faker.datatype.uuid(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    startDate: faker.date.past().toISOString().slice(0, 10),
+    department: faker.name.jobArea(),
+    dateOfBirth: faker.date.past().toISOString().slice(0, 10),
     address: {
-      street: '57 Great Jones St',
-      city: 'New York',
-      state: 'NY',
-      zip: '10012',
+      street: faker.address.streetAddress(),
+      city: faker.address.city(),
+      state: faker.address.state(),
+      zip: faker.address.zipCode(),
     },
-  },
-  {
-    id: 2,
-    firstName: 'Ada',
-    lastName: 'Lovelace',
-    startDate: '2023-02-01',
-    department: 'IT',
-    dateOfBirth: '1995-12-10',
-    address: {
-      street: '1st Ave',
-      city: 'Palo Alto',
-      state: 'CA',
-      zip: '94301',
-    },
-  },
-];
+  };
+}
+// Create 10 employees
+for (let i = 0; i < 10; i++) {
+  employees.push(createEmployee());
+}
+console.log(employees);
 
 export default employees;
