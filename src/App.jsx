@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './components/CreateEmployeeForm/CreateEmployeeForm';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 
 function App() {
+  // Modal window state and handlers
+  const [showModal, setShowModal] = useState(false);
+  function handleCloseModal() {
+    setShowModal(false);
+  }
+  function handleShowModal() {
+    setShowModal(true);
+  }
+
   return (
     <>
       <div>
@@ -12,9 +21,9 @@ function App() {
       <div>
         <Link to="employee-list">View Current Employees</Link>
         <h2>Create Employee</h2>
-        <Form />
+        <Form handleShowModal={handleShowModal} />
       </div>
-      <ModalWindow />
+      {showModal && <ModalWindow handleCloseModal={handleCloseModal} />}
     </>
   );
 }

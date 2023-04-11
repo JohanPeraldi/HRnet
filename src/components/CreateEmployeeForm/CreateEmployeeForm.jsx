@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './CreateEmployeeForm.module.css';
 
-function CreateEmployeeForm() {
-  const [showModal, setShowModal] = useState(false);
-  /* function handleCloseModal() {
-    setShowModal(false);
-  } */
-  console.log('Modal is shown: ', showModal);
-  function handleShowModal() {
-    setShowModal(true);
-  }
+function CreateEmployeeForm({ handleShowModal }) {
   function handleSubmit(event) {
     event.preventDefault();
     handleShowModal();

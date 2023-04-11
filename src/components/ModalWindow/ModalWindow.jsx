@@ -1,12 +1,7 @@
 import React from 'react';
 import styles from './ModalWindow.module.css';
 
-function ModalWindow() {
-  function handleCloseModal() {
-    // setShowModal(false);
-    console.log('Modal should close');
-  }
-
+function ModalWindow({ handleCloseModal }) {
   return (
     <div className={styles['modal-overlay']}>
       <div className={styles.modal}>
