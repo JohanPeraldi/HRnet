@@ -283,7 +283,7 @@ function CreateEmployeeForm({ handleShowModal }) {
         id="last-name"
         name="lastName"
         className={styles.input}
-        required
+        // required
       />
 
       <label htmlFor="date-of-birth" className={styles.label}>
@@ -294,7 +294,7 @@ function CreateEmployeeForm({ handleShowModal }) {
         id="date-of-birth"
         name="dateOfBirth"
         className={styles.input}
-        required
+        // required
       />
 
       <label htmlFor="start-date" className={styles.label}>
@@ -305,7 +305,7 @@ function CreateEmployeeForm({ handleShowModal }) {
         id="start-date"
         name="startDate"
         className={styles.input}
-        required
+        // required
       />
 
       <fieldset className={styles.address}>
@@ -319,7 +319,7 @@ function CreateEmployeeForm({ handleShowModal }) {
           id="street"
           name="street"
           className={styles.input}
-          required
+          // required
         />
 
         <label htmlFor="city" className={styles.label}>
@@ -330,7 +330,7 @@ function CreateEmployeeForm({ handleShowModal }) {
           id="city"
           name="city"
           className={styles.input}
-          required
+          // required
         />
 
         <label htmlFor="state" className={styles.label}>
@@ -352,7 +352,7 @@ function CreateEmployeeForm({ handleShowModal }) {
           id="zip-code"
           name="zipCode"
           className={styles.input}
-          required
+          // required
         />
       </fieldset>
 
