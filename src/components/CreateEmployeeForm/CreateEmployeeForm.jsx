@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatData, updateLocalStorage } from '../../utils/helpers';
 import styles from './CreateEmployeeForm.module.css';
 
 function CreateEmployeeForm({ handleShowModal }) {
@@ -8,8 +9,10 @@ function CreateEmployeeForm({ handleShowModal }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-
-    console.log('Employee info: ', data);
+    const formattedData = formatData(data);
+    console.log('Employee info: ', formattedData);
+    updateLocalStorage(formattedData);
+    // TODO: Rerender EmployeeList component UI with new employee
   }
   const states = [
     {

@@ -34,6 +34,11 @@ const getEmployeesFromLocalStorage = () => {
   return localStorage.getItem(KEY_EMPLOYEES);
 };
 
+const updateLocalStorage = (employee) => {
+  const storedEmployees = JSON.parse(getEmployeesFromLocalStorage());
+  saveEmployeesToLocalStorage([...storedEmployees, employee]);
+};
+
 const getEmployees = () => {
   const storedEmployees = getEmployeesFromLocalStorage();
   // if there are no employees in local storage, generate them
@@ -46,4 +51,32 @@ const getEmployees = () => {
   return JSON.parse(storedEmployees);
 };
 
-export { getEmployees };
+const formatData = (data) => {
+  const {
+    city,
+    dateOfBirth,
+    department,
+    firstName,
+    lastName,
+    startDate,
+    state,
+    street,
+    zipCode,
+  } = data;
+  return {
+    address: {
+      city,
+      state,
+      street,
+      zip: zipCode,
+    },
+    dateOfBirth,
+    department,
+    firstName,
+    id: faker.datatype.uuid(),
+    lastName,
+    startDate,
+  };
+};
+
+export { formatData, getEmployees, updateLocalStorage };
