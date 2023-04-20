@@ -1,8 +1,11 @@
-import React from 'react';
-import { formatData, updateLocalStorage } from '../../utils/helpers';
+import React, { useContext } from 'react';
+import { EmployeesContext } from '../../context/employees-context';
+import { formatData } from '../../utils/helpers';
 import styles from './CreateEmployeeForm.module.css';
 
 function CreateEmployeeForm({ handleShowModal }) {
+  const { employees, setEmployees } = useContext(EmployeesContext);
+
   function handleSubmit(event) {
     event.preventDefault();
     handleShowModal();
@@ -10,9 +13,8 @@ function CreateEmployeeForm({ handleShowModal }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     const formattedData = formatData(data);
-    console.log('Employee info: ', formattedData);
-    updateLocalStorage(formattedData);
-    // TODO: Rerender EmployeeList component UI with new employee
+    // Update employees state
+    setEmployees([...employees, formattedData]);
   }
   const states = [
     {

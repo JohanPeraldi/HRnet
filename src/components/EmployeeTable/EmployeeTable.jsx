@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { EmployeesContext } from '../../context/employees-context';
 import styles from './EmployeeTable.module.css';
-import employees from '../../data/employees';
 
 function EmployeeTable() {
+  const { employees } = useContext(EmployeesContext);
+
   return (
     <table className={styles.table}>
       <thead className={styles.head}>
@@ -19,19 +21,25 @@ function EmployeeTable() {
         </tr>
       </thead>
       <tbody className={styles.body}>
-        {employees.map((employee) => (
-          <tr key={employee.id} className={styles.row}>
-            <td>{employee.firstName}</td>
-            <td>{employee.lastName}</td>
-            <td>{employee.startDate}</td>
-            <td>{employee.department}</td>
-            <td>{employee.dateOfBirth}</td>
-            <td>{employee.address.street}</td>
-            <td>{employee.address.city}</td>
-            <td>{employee.address.state}</td>
-            <td>{employee.address.zip}</td>
+        {employees.length > 0 &&
+          employees.map((employee) => (
+            <tr key={employee.id} className={styles.row}>
+              <td>{employee.firstName}</td>
+              <td>{employee.lastName}</td>
+              <td>{employee.startDate}</td>
+              <td>{employee.department}</td>
+              <td>{employee.dateOfBirth}</td>
+              <td>{employee.address.street}</td>
+              <td>{employee.address.city}</td>
+              <td>{employee.address.state}</td>
+              <td>{employee.address.zip}</td>
+            </tr>
+          ))}
+        {employees.length === 0 && (
+          <tr className={styles.row}>
+            <td colSpan="9">No data available in table</td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );

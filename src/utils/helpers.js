@@ -1,12 +1,9 @@
 import { faker } from '@faker-js/faker';
 
-const NUM_EMPLOYEES = process.env.REACT_APP_NUM_EMPLOYEES;
-const KEY_EMPLOYEES = process.env.REACT_APP_KEY_EMPLOYEES;
-
-const generateEmployees = () => {
+const generateEmployees = (numberOfEmployeesToGenerate) => {
   const employees = [];
 
-  for (let i = 0; i < NUM_EMPLOYEES; i++) {
+  for (let i = 0; i < numberOfEmployeesToGenerate; i++) {
     employees.push({
       id: faker.datatype.uuid(),
       firstName: faker.name.firstName(),
@@ -24,31 +21,6 @@ const generateEmployees = () => {
   }
 
   return employees;
-};
-
-const saveEmployeesToLocalStorage = (employees) => {
-  localStorage.setItem(KEY_EMPLOYEES, JSON.stringify(employees));
-};
-
-const getEmployeesFromLocalStorage = () => {
-  return localStorage.getItem(KEY_EMPLOYEES);
-};
-
-const updateLocalStorage = (employee) => {
-  const storedEmployees = JSON.parse(getEmployeesFromLocalStorage());
-  saveEmployeesToLocalStorage([...storedEmployees, employee]);
-};
-
-const getEmployees = () => {
-  const storedEmployees = getEmployeesFromLocalStorage();
-  // if there are no employees in local storage, generate them
-  if (!storedEmployees) {
-    const employees = generateEmployees();
-    saveEmployeesToLocalStorage(employees);
-    return employees;
-  }
-  // if there are employees in local storage, parse them and return them
-  return JSON.parse(storedEmployees);
 };
 
 const formatData = (data) => {
@@ -79,4 +51,4 @@ const formatData = (data) => {
   };
 };
 
-export { formatData, getEmployees, updateLocalStorage };
+export { formatData, generateEmployees };
