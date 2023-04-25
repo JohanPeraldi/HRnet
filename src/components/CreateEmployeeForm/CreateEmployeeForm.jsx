@@ -1,7 +1,12 @@
 import React, { useContext } from 'react';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import { EmployeesContext } from '../../context/employees-context';
 import { formatData } from '../../utils/helpers';
-import styles from './CreateEmployeeForm.module.css';
 
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
@@ -16,6 +21,7 @@ function CreateEmployeeForm({ handleShowModal }) {
     // Update employees state
     setEmployees([...employees, formattedData]);
   }
+
   const states = [
     {
       name: 'Alabama',
@@ -254,6 +260,7 @@ function CreateEmployeeForm({ handleShowModal }) {
       abbreviation: 'WY',
     },
   ];
+
   const departments = [
     'Sales',
     'Marketing',
@@ -263,119 +270,151 @@ function CreateEmployeeForm({ handleShowModal }) {
   ];
 
   return (
-    <form
-      action="#"
-      id="create-employee"
-      className={styles.form}
-      onSubmit={handleSubmit}
-    >
-      <label htmlFor="first-name" className={styles.label}>
-        First Name
-      </label>
-      <input
-        type="text"
-        id="first-name"
-        name="firstName"
-        className={styles.input}
-        required
-      />
+    <Container fluid>
+      <Form action="#" id="create-employee" onSubmit={handleSubmit}>
+        <fieldset>
+          <legend>Personal Details</legend>
+          <Row>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicFirstName">
+                <FloatingLabel
+                  controlId="floatingFirstName"
+                  label="First Name"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicLastName">
+                <FloatingLabel
+                  controlId="floatingLastName"
+                  label="Last Name"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
+                <FloatingLabel
+                  controlId="floatingDateOfBirth"
+                  label="Date of Birth"
+                  className="mb-3"
+                >
+                  <Form.Control type="date" name="dateOfBirth" />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicStartDate">
+                <FloatingLabel
+                  controlId="floatingStartDate"
+                  label="Start Date"
+                  className="mb-3"
+                >
+                  <Form.Control type="date" name="startDate" />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+          </Row>
+        </fieldset>
 
-      <label htmlFor="last-name" className={styles.label}>
-        Last Name
-      </label>
-      <input
-        type="text"
-        id="last-name"
-        name="lastName"
-        className={styles.input}
-        // required
-      />
+        <fieldset>
+          <legend>Address</legend>
+          <Row>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicStreet">
+                <FloatingLabel
+                  controlId="floatingStreet"
+                  label="Street"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="text"
+                    name="street"
+                    placeholder="Street"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicCity">
+                <FloatingLabel
+                  controlId="floatingCity"
+                  label="City"
+                  className="mb-3"
+                >
+                  <Form.Control type="text" name="city" placeholder="City" />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicState">
+                <FloatingLabel controlId="floatingState" label="State">
+                  <Form.Select name="state" aria-label="Select State">
+                    {states.map((state) => (
+                      <option key={state.name} value={state.name}>
+                        {state.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group className="mb-3" controlId="formBasicZipcode">
+                <FloatingLabel
+                  controlId="floatingZipcode"
+                  label="Zip Code"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="number"
+                    name="zipCode"
+                    placeholder="Zip Code"
+                    min="0"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Col>
+          </Row>
+        </fieldset>
 
-      <label htmlFor="date-of-birth" className={styles.label}>
-        Date of Birth
-      </label>
-      <input
-        type="date"
-        id="date-of-birth"
-        name="dateOfBirth"
-        className={styles.input}
-        // required
-      />
+        <fieldset>
+          <legend>Department</legend>
+          <Row className={`col-md-6 offset-md-3`}>
+            <Form.Group className="mb-3" controlId="formBasicDepartment">
+              <Form.Select name="department" aria-label="Select Department">
+                {departments.map((department) => (
+                  <option key={department} value={department}>
+                    {department}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Row>
+        </fieldset>
 
-      <label htmlFor="start-date" className={styles.label}>
-        Start Date
-      </label>
-      <input
-        type="date"
-        id="start-date"
-        name="startDate"
-        className={styles.input}
-        // required
-      />
-
-      <fieldset className={styles.address}>
-        <legend>Address</legend>
-
-        <label htmlFor="street" className={styles.label}>
-          Street
-        </label>
-        <input
-          type="text"
-          id="street"
-          name="street"
-          className={styles.input}
-          // required
-        />
-
-        <label htmlFor="city" className={styles.label}>
-          City
-        </label>
-        <input
-          type="text"
-          id="city"
-          name="city"
-          className={styles.input}
-          // required
-        />
-
-        <label htmlFor="state" className={styles.label}>
-          State
-        </label>
-        <select name="state" id="state" className={styles.select}>
-          {states.map((state) => (
-            <option className={styles.option} key={state.name}>
-              {state.name}
-            </option>
-          ))}
-        </select>
-
-        <label htmlFor="zip-code" className={styles.label}>
-          Zip Code
-        </label>
-        <input
-          type="number"
-          id="zip-code"
-          name="zipCode"
-          className={styles.input}
-          // required
-        />
-      </fieldset>
-
-      <label htmlFor="department" className={styles.label}>
-        Department
-      </label>
-      <select name="department" id="department" className={styles.select}>
-        {departments.map((department) => (
-          <option key={department}>{department}</option>
-        ))}
-      </select>
-
-      <div className={styles['button-container']}>
-        <button type="submit" className={styles.button}>
+        <Button type="submit" className="my-4">
           Save
-        </button>
-      </div>
-    </form>
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
