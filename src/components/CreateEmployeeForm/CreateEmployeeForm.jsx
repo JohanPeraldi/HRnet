@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { EmployeesContext } from '../../context/employees-context';
-import { formatData } from '../../utils/helpers';
+import { formatData, formatMonth } from '../../utils/helpers';
 
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [startDate, setStartDate] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,6 +20,14 @@ function CreateEmployeeForm({ handleShowModal }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    console.log(dateOfBirth);
+    data.dateOfBirth = `${dateOfBirth.$y}-${formatMonth(dateOfBirth.$M + 1)}-${
+      dateOfBirth.$D
+    }`;
+    data.startDate = `${startDate.$y}-${formatMonth(startDate.$M + 1)}-${
+      startDate.$D
+    }`;
     const formattedData = formatData(data);
     // Update employees state
     setEmployees([...employees, formattedData]);
@@ -309,24 +320,36 @@ function CreateEmployeeForm({ handleShowModal }) {
           <Row>
             <Col sm={12} md={6}>
               <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
-                <FloatingLabel
+                {/* <FloatingLabel
                   controlId="floatingDateOfBirth"
                   label="Date of Birth"
                   className="mb-3"
                 >
                   <Form.Control type="date" name="dateOfBirth" />
-                </FloatingLabel>
+                </FloatingLabel> */}
+                <DatePicker
+                  label="Date of Birth"
+                  views={['year', 'month', 'day']}
+                  value={dateOfBirth}
+                  onChange={(newValue) => setDateOfBirth(newValue)}
+                />
               </Form.Group>
             </Col>
             <Col sm={12} md={6}>
               <Form.Group className="mb-3" controlId="formBasicStartDate">
-                <FloatingLabel
+                {/* <FloatingLabel
                   controlId="floatingStartDate"
                   label="Start Date"
                   className="mb-3"
                 >
                   <Form.Control type="date" name="startDate" />
-                </FloatingLabel>
+                </FloatingLabel> */}
+                <DatePicker
+                  label="Start Date"
+                  views={['year', 'month', 'day']}
+                  value={startDate}
+                  onChange={(newValue) => setStartDate(newValue)}
+                />
               </Form.Group>
             </Col>
           </Row>
