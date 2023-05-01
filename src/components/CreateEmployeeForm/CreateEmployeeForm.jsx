@@ -16,6 +16,7 @@ function CreateEmployeeForm({ handleShowModal }) {
     // Update employees state
     setEmployees([...employees, formattedData]);
   }
+
   const states = [
     {
       name: 'Alabama',
@@ -254,6 +255,7 @@ function CreateEmployeeForm({ handleShowModal }) {
       abbreviation: 'WY',
     },
   ];
+
   const departments = [
     'Sales',
     'Marketing',
