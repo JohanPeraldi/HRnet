@@ -1,10 +1,21 @@
-import React, { useContext } from 'react';
-import Container from 'react-bootstrap/Container';
+import React, { useContext, useEffect } from 'react';
 import { EmployeesContext } from '../../context/employees-context';
+import { generateEmployees } from '../../utils/helpers';
 import styles from './EmployeeTable.module.css';
 
 function EmployeeTable() {
-  const { employees } = useContext(EmployeesContext);
+  const { employees, setEmployees } = useContext(EmployeesContext);
+
+  // Make sure that there are at least 5 fake employees to display
+  useEffect(() => {
+    if (employees.length < 5) {
+      const additionalEmployees = generateEmployees(5 - employees.length);
+      setEmployees((prevEmployees) => [
+        ...prevEmployees,
+        ...additionalEmployees,
+      ]);
+    }
+  }, [employees.length, setEmployees]);
 
   return (
     <Container fluid>
