@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.7"

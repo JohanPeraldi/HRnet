@@ -1,5 +1,5 @@
-import { getEmployees } from '../utils/helpers';
+import { generateEmployees } from '../utils/helpers';
 
-const employees = getEmployees();
+const employees = generateEmployees();
 
 export default employees;
