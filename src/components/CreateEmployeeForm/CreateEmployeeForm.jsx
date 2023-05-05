@@ -9,7 +9,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { EmployeesContext } from '../../context/employees-context';
 import { states } from '../../data/states';
 import { departments } from '../../data/departments';
-import { formatData } from '../../utils/helpers';
+import { formatData, formatDateMonth } from '../../utils/helpers';
 
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
@@ -24,12 +24,12 @@ function CreateEmployeeForm({ handleShowModal }) {
     const data = Object.fromEntries(formData.entries());
     console.log(data);
     console.log(dateOfBirth);
-    data.dateOfBirth = `${dateOfBirth.$y}-${formatMonth(dateOfBirth.$M + 1)}-${
-      dateOfBirth.$D
-    }`;
-    data.startDate = `${startDate.$y}-${formatMonth(startDate.$M + 1)}-${
-      startDate.$D
-    }`;
+    data.dateOfBirth = `${dateOfBirth.$y}-${formatDateMonth(
+      dateOfBirth.$M + 1
+    )}-${formatDateMonth(dateOfBirth.$D)}`;
+    data.startDate = `${startDate.$y}-${formatDateMonth(
+      startDate.$M + 1
+    )}-${formatDateMonth(startDate.$D)}`;
     const formattedData = formatData(data);
     // Update employees state
     setEmployees([...employees, formattedData]);

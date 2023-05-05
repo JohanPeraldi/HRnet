@@ -51,12 +51,12 @@ const formatData = (data) => {
   };
 };
 
-// A function to add the leading zero to the month if it's less than 10
-const formatMonth = (month) => {
-  if (month < 10) {
-    return `0${month}`;
+// A function to add the leading zero to the date or month if it's less than 10
+const formatDateMonth = (n) => {
+  if (n < 10) {
+    return `0${n}`;
   }
-  return month;
+  return n;
 };
 
-export { formatData, formatMonth, generateEmployees };
+export { formatData, formatDateMonth, generateEmployees };
