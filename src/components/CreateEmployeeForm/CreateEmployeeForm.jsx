@@ -5,16 +5,25 @@ import Container from 'react-bootstrap/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { EmployeesContext } from '../../context/employees-context';
-import { states } from '../../data/states';
 import { departments } from '../../data/departments';
+import { states } from '../../data/states';
 import { formatData, formatDateMonth } from '../../utils/helpers';
 
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
+  // Initial state for date pickers must be null. Otherwise, if set to an empty string,
+  // the MUI date picker will show an error.
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [startDate, setStartDate] = useState(null);
+  const [state, setState] = useState('');
+  const [department, setDepartment] = useState('');
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,9 +39,21 @@ function CreateEmployeeForm({ handleShowModal }) {
     data.startDate = `${startDate.$y}-${formatDateMonth(
       startDate.$M + 1
     )}-${formatDateMonth(startDate.$D)}`;
+    data.state = state;
+    data.department = department;
     const formattedData = formatData(data);
     // Update employees state
     setEmployees([...employees, formattedData]);
+  }
+
+  function handleChangeState(event) {
+    console.log(event);
+    setState(event.target.value);
+  }
+
+  function handleChangeDepartment(event) {
+    console.log(event);
+    setDepartment(event.target.value);
   }
 
   return (
@@ -75,13 +96,6 @@ function CreateEmployeeForm({ handleShowModal }) {
           <Row>
             <Col sm={12} md={6}>
               <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
-                {/* <FloatingLabel
-                  controlId="floatingDateOfBirth"
-                  label="Date of Birth"
-                  className="mb-3"
-                >
-                  <Form.Control type="date" name="dateOfBirth" />
-                </FloatingLabel> */}
                 <DatePicker
                   label="Date of Birth"
                   views={['year', 'month', 'day']}
@@ -92,13 +106,6 @@ function CreateEmployeeForm({ handleShowModal }) {
             </Col>
             <Col sm={12} md={6}>
               <Form.Group className="mb-3" controlId="formBasicStartDate">
-                {/* <FloatingLabel
-                  controlId="floatingStartDate"
-                  label="Start Date"
-                  className="mb-3"
-                >
-                  <Form.Control type="date" name="startDate" />
-                </FloatingLabel> */}
                 <DatePicker
                   label="Start Date"
                   views={['year', 'month', 'day']}
@@ -143,15 +150,24 @@ function CreateEmployeeForm({ handleShowModal }) {
           <Row>
             <Col sm={12} md={6}>
               <Form.Group className="mb-3" controlId="formBasicState">
-                <FloatingLabel controlId="floatingState" label="State">
-                  <Form.Select name="state" aria-label="Select State">
-                    {states.map((state) => (
-                      <option key={state.name} value={state.name}>
-                        {state.name}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </FloatingLabel>
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="state-label">State</InputLabel>
+                    <Select
+                      labelId="state-label"
+                      id="state"
+                      value={state}
+                      label="State"
+                      onChange={handleChangeState}
+                    >
+                      {states.map((state) => (
+                        <MenuItem key={state.name} value={state.name}>
+                          {state.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
               </Form.Group>
             </Col>
             <Col sm={12} md={6}>
@@ -177,13 +193,24 @@ function CreateEmployeeForm({ handleShowModal }) {
           <legend>Department</legend>
           <Row className={`col-md-6 offset-md-3`}>
             <Form.Group className="mb-3" controlId="formBasicDepartment">
-              <Form.Select name="department" aria-label="Select Department">
-                {departments.map((department) => (
-                  <option key={department} value={department}>
-                    {department}
-                  </option>
-                ))}
-              </Form.Select>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="department-label">Department</InputLabel>
+                  <Select
+                    labelId="department-label"
+                    id="department"
+                    value={department}
+                    label="Department"
+                    onChange={handleChangeDepartment}
+                  >
+                    {departments.map((dpt) => (
+                      <MenuItem key={dpt} value={dpt}>
+                        {dpt}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </Form.Group>
           </Row>
         </fieldset>
