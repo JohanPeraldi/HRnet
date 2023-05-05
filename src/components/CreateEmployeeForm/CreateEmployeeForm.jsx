@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -31,8 +31,6 @@ function CreateEmployeeForm({ handleShowModal }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
-    console.log(dateOfBirth);
     data.dateOfBirth = `${dateOfBirth.$y}-${formatDateMonth(
       dateOfBirth.$M + 1
     )}-${formatDateMonth(dateOfBirth.$D)}`;
@@ -47,12 +45,10 @@ function CreateEmployeeForm({ handleShowModal }) {
   }
 
   function handleChangeState(event) {
-    console.log(event);
     setState(event.target.value);
   }
 
   function handleChangeDepartment(event) {
-    console.log(event);
     setDepartment(event.target.value);
   }
 
@@ -215,7 +211,7 @@ function CreateEmployeeForm({ handleShowModal }) {
           </Row>
         </fieldset>
 
-        <Button type="submit" className="my-4">
+        <Button type="submit" variant="contained" color="success">
           Save
         </Button>
       </Form>
