@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -54,80 +55,108 @@ function CreateEmployeeForm({ handleShowModal }) {
       <form action="#" id="create-employee" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Personal Details</legend>
-          <FormControl fullWidth>
-            <TextField
-              id="outlined-basic"
-              label="First Name"
-              margin="dense"
-              variant="outlined"
-              required
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <TextField
-              id="outlined-basic"
-              label="Last Name"
-              margin="dense"
-              variant="outlined"
-              required
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <DatePicker
-              label="Date of Birth"
-              minDate={dayjs('1950-01-01')}
-              maxDate={dayjs('2007-05-01')}
-              views={['year', 'month', 'day']}
-              value={dateOfBirth}
-              onChange={(newValue) => setDateOfBirth(newValue)}
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <DatePicker
-              label="Start Date"
-              minDate={dayjs('2000-01-01')}
-              maxDate={dayjs('2023-12-31')}
-              views={['year', 'month', 'day']}
-              value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
-            />
-          </FormControl>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="First Name"
+                  margin="dense"
+                  variant="outlined"
+                  required
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Last Name"
+                  margin="dense"
+                  variant="outlined"
+                  required
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <DatePicker
+                  label="Date of Birth"
+                  minDate={dayjs('1950-01-01')}
+                  maxDate={dayjs('2007-05-01')}
+                  views={['year', 'month', 'day']}
+                  value={dateOfBirth}
+                  onChange={(newValue) => setDateOfBirth(newValue)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <DatePicker
+                  label="Start Date"
+                  minDate={dayjs('2000-01-01')}
+                  maxDate={dayjs('2023-12-31')}
+                  views={['year', 'month', 'day']}
+                  value={startDate}
+                  onChange={(newValue) => setStartDate(newValue)}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
         </fieldset>
 
         <fieldset>
           <legend>Address</legend>
-          <FormControl fullWidth>
-            <TextField id="outlined-basic" label="Street" variant="outlined" />
-          </FormControl>
-          <FormControl fullWidth>
-            <TextField id="outlined-basic" label="City" variant="outlined" />
-          </FormControl>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="state-label">State</InputLabel>
-              <Select
-                labelId="state-label"
-                id="state"
-                value={state}
-                label="State"
-                onChange={handleChangeState}
-              >
-                {states.map((state) => (
-                  <MenuItem key={state.name} value={state.name}>
-                    {state.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <FormControl fullWidth>
-            <TextField
-              id="outlined-basic"
-              label="Zip Code"
-              type="number"
-              variant="outlined"
-            />
-          </FormControl>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Street"
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="City"
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="state-label">State</InputLabel>
+                  <Select
+                    labelId="state-label"
+                    id="state"
+                    value={state}
+                    label="State"
+                    onChange={handleChangeState}
+                  >
+                    {states.map((state) => (
+                      <MenuItem key={state.name} value={state.name}>
+                        {state.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Zip Code"
+                  type="number"
+                  variant="outlined"
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
         </fieldset>
 
         <Box sx={{ marginTop: 2, minWidth: 120 }}>
