@@ -6,7 +6,7 @@ import EmployeeList from './routes/EmployeeList/EmployeeList';
 import NotFound from './routes/NotFound/NotFound';
 import Root from './routes/Root/Root';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import CssBaseline from '@mui/material/CssBaseline';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <CssBaseline />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

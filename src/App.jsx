@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import Box from '@mui/material/Box';
 import Form from './components/CreateEmployeeForm/CreateEmployeeForm';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 
@@ -25,21 +24,13 @@ function App() {
   }
 
   return (
-    <Container fluid>
-      <Row className="text-center mt-4">
-        <h1>HRnet</h1>
-      </Row>
-      <Row className="text-center">
-        <Link to="employee-list">View Current Employees</Link>
-      </Row>
-      <Row className="text-center my-4">
-        <h2>Create Employee</h2>
-      </Row>
-      <Row className="text-center">
-        <Form handleShowModal={handleShowModal} />
-      </Row>
+    <Box>
+      <h1>HRnet</h1>
+      <Link to="employee-list">View Current Employees</Link>
+      <h2>Create Employee</h2>
+      <Form handleShowModal={handleShowModal} />
       {showModal && <ModalWindow handleCloseModal={handleCloseModal} />}
-    </Container>
+    </Box>
   );
 }
 

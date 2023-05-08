@@ -1,20 +1,17 @@
 import React, { useContext, useState } from 'react';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { EmployeesContext } from '../../context/employees-context';
 import { departments } from '../../data/departments';
 import { states } from '../../data/states';
 import { formatData, formatDateMonth } from '../../utils/helpers';
+import dayjs from 'dayjs';
 
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
@@ -53,169 +50,112 @@ function CreateEmployeeForm({ handleShowModal }) {
   }
 
   return (
-    <Container fluid>
-      <Form action="#" id="create-employee" onSubmit={handleSubmit}>
+    <Box>
+      <form action="#" id="create-employee" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Personal Details</legend>
-          <Row>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicFirstName">
-                <FloatingLabel
-                  controlId="floatingFirstName"
-                  label="First Name"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicLastName">
-                <FloatingLabel
-                  controlId="floatingLastName"
-                  label="Last Name"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
-                <DatePicker
-                  label="Date of Birth"
-                  views={['year', 'month', 'day']}
-                  value={dateOfBirth}
-                  onChange={(newValue) => setDateOfBirth(newValue)}
-                />
-              </Form.Group>
-            </Col>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicStartDate">
-                <DatePicker
-                  label="Start Date"
-                  views={['year', 'month', 'day']}
-                  value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+          <FormControl fullWidth>
+            <TextField
+              id="outlined-basic"
+              label="First Name"
+              margin="dense"
+              variant="outlined"
+              required
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              id="outlined-basic"
+              label="Last Name"
+              margin="dense"
+              variant="outlined"
+              required
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <DatePicker
+              label="Date of Birth"
+              minDate={dayjs('1950-01-01')}
+              maxDate={dayjs('2007-05-01')}
+              views={['year', 'month', 'day']}
+              value={dateOfBirth}
+              onChange={(newValue) => setDateOfBirth(newValue)}
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <DatePicker
+              label="Start Date"
+              minDate={dayjs('2000-01-01')}
+              maxDate={dayjs('2023-12-31')}
+              views={['year', 'month', 'day']}
+              value={startDate}
+              onChange={(newValue) => setStartDate(newValue)}
+            />
+          </FormControl>
         </fieldset>
 
         <fieldset>
           <legend>Address</legend>
-          <Row>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicStreet">
-                <FloatingLabel
-                  controlId="floatingStreet"
-                  label="Street"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    name="street"
-                    placeholder="Street"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicCity">
-                <FloatingLabel
-                  controlId="floatingCity"
-                  label="City"
-                  className="mb-3"
-                >
-                  <Form.Control type="text" name="city" placeholder="City" />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicState">
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="state-label">State</InputLabel>
-                    <Select
-                      labelId="state-label"
-                      id="state"
-                      value={state}
-                      label="State"
-                      onChange={handleChangeState}
-                    >
-                      {states.map((state) => (
-                        <MenuItem key={state.name} value={state.name}>
-                          {state.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Form.Group>
-            </Col>
-            <Col sm={12} md={6}>
-              <Form.Group className="mb-3" controlId="formBasicZipcode">
-                <FloatingLabel
-                  controlId="floatingZipcode"
-                  label="Zip Code"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="number"
-                    name="zipCode"
-                    placeholder="Zip Code"
-                    min="0"
-                  />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-          </Row>
+          <FormControl fullWidth>
+            <TextField id="outlined-basic" label="Street" variant="outlined" />
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField id="outlined-basic" label="City" variant="outlined" />
+          </FormControl>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="state-label">State</InputLabel>
+              <Select
+                labelId="state-label"
+                id="state"
+                value={state}
+                label="State"
+                onChange={handleChangeState}
+              >
+                {states.map((state) => (
+                  <MenuItem key={state.name} value={state.name}>
+                    {state.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <FormControl fullWidth>
+            <TextField
+              id="outlined-basic"
+              label="Zip Code"
+              type="number"
+              variant="outlined"
+            />
+          </FormControl>
         </fieldset>
 
-        <fieldset>
-          <legend>Department</legend>
-          <Row className={`col-md-6 offset-md-3`}>
-            <Form.Group className="mb-3" controlId="formBasicDepartment">
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="department-label">Department</InputLabel>
-                  <Select
-                    labelId="department-label"
-                    id="department"
-                    value={department}
-                    label="Department"
-                    onChange={handleChangeDepartment}
-                  >
-                    {departments.map((dpt) => (
-                      <MenuItem key={dpt} value={dpt}>
-                        {dpt}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-            </Form.Group>
-          </Row>
-        </fieldset>
+        <Box sx={{ marginTop: 2, minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="department-label">Department</InputLabel>
+            <Select
+              labelId="department-label"
+              id="department"
+              value={department}
+              label="Department"
+              onChange={handleChangeDepartment}
+            >
+              {departments.map((dpt) => (
+                <MenuItem key={dpt} value={dpt}>
+                  {dpt}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
 
-        <Button type="submit" variant="contained" color="success">
-          Save
-        </Button>
-      </Form>
-    </Container>
+        <Box sx={{ marginTop: 2 }}>
+          <Button type="submit" variant="contained" color="success">
+            Save
+          </Button>
+        </Box>
+      </form>
+    </Box>
   );
 }
 
