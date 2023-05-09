@@ -17,7 +17,7 @@ import dayjs from 'dayjs';
 function CreateEmployeeForm({ handleShowModal }) {
   const { employees, setEmployees } = useContext(EmployeesContext);
   // Initial state for date pickers must be null. Otherwise, if set to an empty string,
-  // the MUI date picker will show an error.
+  // the MUI date picker will have error styles.
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [state, setState] = useState('');
@@ -29,16 +29,21 @@ function CreateEmployeeForm({ handleShowModal }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    data.dateOfBirth = `${dateOfBirth.$y}-${formatDateMonth(
-      dateOfBirth.$M + 1
-    )}-${formatDateMonth(dateOfBirth.$D)}`;
-    data.startDate = `${startDate.$y}-${formatDateMonth(
-      startDate.$M + 1
-    )}-${formatDateMonth(startDate.$D)}`;
+    // Only format dates if they are not null
+    if (dateOfBirth !== null) {
+      data.dateOfBirth = `${dateOfBirth.$y}-${formatDateMonth(
+        dateOfBirth.$M + 1
+      )}-${formatDateMonth(dateOfBirth.$D)}`;
+    }
+    if (startDate !== null) {
+      data.startDate = `${startDate.$y}-${formatDateMonth(
+        startDate.$M + 1
+      )}-${formatDateMonth(startDate.$D)}`;
+    }
     data.state = state;
     data.department = department;
     const formattedData = formatData(data);
-    // Update employees state
+    // Update employees state with new employee
     setEmployees([...employees, formattedData]);
   }
 
@@ -62,6 +67,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                   id="outlined-basic"
                   label="First Name"
                   margin="dense"
+                  name="firstName"
                   variant="outlined"
                   required
                 />
@@ -73,6 +79,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                   id="outlined-basic"
                   label="Last Name"
                   margin="dense"
+                  name="lastName"
                   variant="outlined"
                   required
                 />
@@ -113,6 +120,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                 <TextField
                   id="outlined-basic"
                   label="Street"
+                  name="street"
                   variant="outlined"
                 />
               </FormControl>
@@ -122,6 +130,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                 <TextField
                   id="outlined-basic"
                   label="City"
+                  name="city"
                   variant="outlined"
                 />
               </FormControl>
@@ -151,6 +160,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                 <TextField
                   id="outlined-basic"
                   label="Zip Code"
+                  name="zipCode"
                   type="number"
                   variant="outlined"
                 />
