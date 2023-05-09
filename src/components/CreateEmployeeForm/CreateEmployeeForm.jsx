@@ -47,12 +47,17 @@ function CreateEmployeeForm({ handleShowModal }) {
     setEmployees([...employees, formattedData]);
   }
 
-  function handleChangeState(event) {
-    setState(event.target.value);
-  }
+  function handleSelectChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
 
-  function handleChangeDepartment(event) {
-    setDepartment(event.target.value);
+    if (name === 'state') {
+      setState(value);
+    }
+    if (name === 'department') {
+      setDepartment(value);
+    }
   }
 
   return (
@@ -144,7 +149,8 @@ function CreateEmployeeForm({ handleShowModal }) {
                     id="state"
                     value={state}
                     label="State"
-                    onChange={handleChangeState}
+                    name="state"
+                    onChange={handleSelectChange}
                   >
                     {states.map((state) => (
                       <MenuItem key={state.name} value={state.name}>
@@ -177,7 +183,8 @@ function CreateEmployeeForm({ handleShowModal }) {
               id="department"
               value={department}
               label="Department"
-              onChange={handleChangeDepartment}
+              name="department"
+              onChange={handleSelectChange}
             >
               {departments.map((dpt) => (
                 <MenuItem key={dpt} value={dpt}>
