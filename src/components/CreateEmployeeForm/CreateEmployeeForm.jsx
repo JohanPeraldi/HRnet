@@ -125,6 +125,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                 <TextField
                   id="outlined-basic"
                   label="Street"
+                  margin="dense"
                   name="street"
                   variant="outlined"
                 />
@@ -135,6 +136,7 @@ function CreateEmployeeForm({ handleShowModal }) {
                 <TextField
                   id="outlined-basic"
                   label="City"
+                  margin="dense"
                   name="city"
                   variant="outlined"
                 />
