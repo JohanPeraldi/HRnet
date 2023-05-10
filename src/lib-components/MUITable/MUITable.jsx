@@ -1,4 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import { DataGrid } from '@mui/x-data-grid';
 import { EmployeesContext } from '../../context/employees-context';
 import { generateEmployees } from '../../utils/helpers';
@@ -17,6 +21,8 @@ const columns = [
 
 export default function MUITable() {
   const { employees, setEmployees } = useContext(EmployeesContext);
+  // Searchbar input state
+  const [searchValue, setSearchValue] = useState('');
 
   // Make sure that there are at least 5 fake employees to display
   useEffect(() => {
@@ -29,8 +35,24 @@ export default function MUITable() {
     }
   }, [employees.length, setEmployees]);
 
+  // Filter employees based on searchbar input
+  const filteredEmployees = employees.filter((employee) => {
+    const searchRegex = new RegExp(searchValue, 'i');
+    return (
+      searchRegex.test(employee.firstName) ||
+      searchRegex.test(employee.lastName) ||
+      searchRegex.test(employee.startDate) ||
+      searchRegex.test(employee.department) ||
+      searchRegex.test(employee.dateOfBirth) ||
+      searchRegex.test(employee.address.street) ||
+      searchRegex.test(employee.address.city) ||
+      searchRegex.test(employee.address.state) ||
+      searchRegex.test(employee.address.zip)
+    );
+  });
+
   const rows = [
-    ...employees.map((employee, index) => ({
+    ...filteredEmployees.map((employee, index) => ({
       id: index,
       col1: employee.firstName,
       col2: employee.lastName,
@@ -45,8 +67,25 @@ export default function MUITable() {
   ];
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
+    <Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <FormControl fullWidth>
+            <TextField
+              id="outlined-basic"
+              label="Search"
+              margin="dense"
+              name="search"
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              variant="outlined"
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <DataGrid rows={rows} columns={columns} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
