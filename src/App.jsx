@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Form from './components/CreateEmployeeForm/CreateEmployeeForm';
 import ModalWindow from './components/ModalWindow/ModalWindow';
+import Modal from 'modal-window';
 
 function App() {
   // Modal window state and handlers
@@ -30,6 +31,11 @@ function App() {
       <h2>Create Employee</h2>
       <Form handleShowModal={handleShowModal} />
       {showModal && <ModalWindow handleCloseModal={handleCloseModal} />}
+      <Modal
+        btn-open-text="Open"
+        modal-text="Testing the modal window!"
+        btn-close-text="Close"
+      />
     </Box>
   );
 }
