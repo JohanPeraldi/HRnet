@@ -32,9 +32,9 @@ function App() {
       <Form handleShowModal={handleShowModal} />
       {showModal && <ModalWindow handleCloseModal={handleCloseModal} />}
       <Modal
-        btn-open-text="Open"
-        modal-text="Testing the modal window!"
-        btn-close-text="Close"
+        btnOpenText="Open"
+        modalText="Testing the modal window!"
+        btnCloseText="Close"
       />
     </Box>
   );
