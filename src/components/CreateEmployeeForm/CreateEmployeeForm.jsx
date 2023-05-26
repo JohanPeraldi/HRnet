@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,8 +12,9 @@ import { departments } from '../../data/departments';
 import { states } from '../../data/states';
 import { formatData, formatDateMonth } from '../../utils/helpers';
 import dayjs from 'dayjs';
+import Modal from '@johanpm/modal-window';
 
-function CreateEmployeeForm({ handleShowModal }) {
+function CreateEmployeeForm() {
   const { employees, setEmployees } = useContext(EmployeesContext);
   // Initial state for date pickers must be null. Otherwise, if set to an empty string,
   // the MUI date picker will have error styles.
@@ -22,29 +22,51 @@ function CreateEmployeeForm({ handleShowModal }) {
   const [startDate, setStartDate] = useState(null);
   const [state, setState] = useState('');
   const [department, setDepartment] = useState('');
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [modalText, setModalText] = useState('Modal window default text');
+  const [data, setData] = useState({});
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    handleShowModal();
+  useEffect(() => {
+    if (formIsValid) {
+      // Format data
+      const formattedData = formatData(data);
+      // Update employees state with new employee
+      setEmployees([...employees, formattedData]);
+    }
+  }, [formIsValid]);
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    // Only format dates if they are not null
-    if (dateOfBirth !== null) {
-      data.dateOfBirth = `${dateOfBirth.$y}-${formatDateMonth(
-        dateOfBirth.$M + 1
-      )}-${formatDateMonth(dateOfBirth.$D)}`;
+  function handleSubmit() {
+    const formData = {
+      firstName: document.querySelector('input[name="firstName"]').value,
+      lastName: document.querySelector('input[name="lastName"]').value,
+      // Only format dates if they are not null
+      dateOfBirth:
+        dateOfBirth !== null
+          ? `${dateOfBirth.$y}-${formatDateMonth(
+              dateOfBirth.$M + 1
+            )}-${formatDateMonth(dateOfBirth.$D)}`
+          : '',
+      startDate:
+        startDate !== null
+          ? `${startDate.$y}-${formatDateMonth(
+              startDate.$M + 1
+            )}-${formatDateMonth(startDate.$D)}`
+          : '',
+      state: state,
+      department: department,
+      street: document.querySelector('input[name="street"]').value,
+      city: document.querySelector('input[name="city"]').value,
+      zipCode: document.querySelector('input[name="zipCode"]').value,
+    };
+
+    if (formData.firstName !== '' && formData.lastName !== '') {
+      setFormIsValid(true);
+      setModalText('Employee created!');
+      setData(formData);
+    } else {
+      setFormIsValid(false);
+      setModalText('Please fill out all required fields');
     }
-    if (startDate !== null) {
-      data.startDate = `${startDate.$y}-${formatDateMonth(
-        startDate.$M + 1
-      )}-${formatDateMonth(startDate.$D)}`;
-    }
-    data.state = state;
-    data.department = department;
-    const formattedData = formatData(data);
-    // Update employees state with new employee
-    setEmployees([...employees, formattedData]);
   }
 
   function handleSelectChange(event) {
@@ -62,7 +84,7 @@ function CreateEmployeeForm({ handleShowModal }) {
 
   return (
     <Box>
-      <form action="#" id="create-employee" onSubmit={handleSubmit}>
+      <form action="#" id="create-employee">
         <fieldset>
           <legend>Personal Details</legend>
           <Grid container spacing={2}>
@@ -198,9 +220,13 @@ function CreateEmployeeForm({ handleShowModal }) {
         </Box>
 
         <Box sx={{ marginTop: 2 }}>
-          <Button type="submit" variant="contained" color="success">
-            Save
-          </Button>
+          <Modal
+            type="submit"
+            btnOpenText="Save"
+            modalText={modalText}
+            btnCloseText="X"
+            actions={handleSubmit}
+          />
         </Box>
       </form>
     </Box>
